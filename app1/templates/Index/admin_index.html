@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome {{adminname}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<!-- 显示错误的flash控件 -->
+
+{% block content %}
+<div class="container">
+    {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button> {{ message }}
+        </div>
+    {% endfor %}
+{% block page_content %}
+    {% endblock %}
+    {% endblock %}
+</div>
+
+<input type="button" value="图书管理" onclick="window.location='http://127.0.0.1:5000/Book/add/'" />
+<input type="button" value="图书借阅" onclick="window.location='http://127.0.0.1:5000/User/add/'" />
+<input type="button" value="图书识别" onclick="window.location='http://127.0.0.1:5000/OCR/'" />
+
+
+</body>
+</html>

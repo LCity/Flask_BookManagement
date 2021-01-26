@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+      <title>User</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+   </head>
+<body>
+<!-- 显示错误的flash控件 -->
+{% block content %}
+<div class="container">
+    {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button> {{ message }}
+        </div>
+    {% endfor %}
+{% block page_content %}
+    {% endblock %}
+</div>
+
+<!-- 网页主体 -->
+{% endblock %}
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-10">
+        <h1>BorrowManager</h1>
+        <hr><br><br>
+        <form action="/Book/add/" method="POST">
+            Bookname: <input type="text" name="bookName" />
+            <br><br>
+            Bookid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <input type="text" name="id" />
+            <br><br>
+            ReaderName&nbsp;&nbsp;&nbsp;&nbsp;: <input type="text" name="readerName" />
+            <br><br>
+            <input type="submit" class="btn btn-success btn-sm" value="Add Book">
+        </form>
+
+        <br><br>
+         <table class="table table-hover">
+          <thead>
+              <th scope="col">BookName</th>
+              <th scope="col">ReadeeName  </th>
+              <th scope="col">BookState</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+
+            {% for u in users %}
+            <tr>
+              <td>{{u.bookName}}</td>
+              <td>{{u.readerName}}</td>
+              <td>{{u.bookState}}</td>
+              <td>{{u.id}}</td>
+              <td>
+                <div class="btn-group" role="group">
+
+                  <form action="{{ url_for('User.delete') }}" method="POST">
+                      <input style="display:none" type="text" name="bookId"  value={{u.id}} />
+                      <input type="submit" class="btn btn-warning btn-sm" value="Borrow">
+                      <input type="submit" class="btn btn-danger  btn-sm" value="Delete">
+                  </form>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

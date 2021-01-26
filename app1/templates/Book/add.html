@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+      <title>Book</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+   </head>
+<body>
+<!-- 显示错误的flash控件 -->
+{% block content %}
+<div class="container">
+    {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button> {{ message }}
+        </div>
+    {% endfor %}
+{% block page_content %}
+    {% endblock %}
+</div>
+
+<!-- 网页主体 -->
+{% endblock %}
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-10">
+        <h1>BookManager</h1>
+        <hr><br><br>
+        <form action=" /Flask/Book/add/" method="POST">
+            Bookname: <input type="text" name="bookName" />
+            <br><br>
+            Author&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <input type="text" name="author" />
+            <br><br>
+            Decribe&nbsp;&nbsp;&nbsp;&nbsp;: <input type="text" name="describe" />
+            <br><br>
+
+              <select name="types"  >
+                  {% for book in booktype %}
+                <option value={{book.id}}>{{book.bookTypeName}}</option>
+
+                  {% endfor %}
+               </select>
+
+            <br><br>
+            <input type="submit" class="btn btn-success btn-sm" value="Add Book">
+        </form>
+
+        <br><br>
+         <table class="table table-hover">
+          <thead>
+              <th scope="col">BookId</th>
+              <th scope="col">BookName</th>
+              <th scope="col">Author  </th>
+              <th scope="col">Describe</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+
+            {% for u in users %}
+            <tr>
+              <td>{{u.id}}</td>
+              <td>{{u.bookName}}</td>
+              <td>{{u.author}}</td>
+              <td>{{u.bookDesc}}</td>
+              <td>
+                <div class="btn-group" role="group">
+
+                  <form action="{{ url_for('Book.delete') }}" method="POST">
+                      <input style="display:none" type="text" name="bookId"  value={{u.id}}>
+                      <input type="submit" class="btn btn-danger  btn-sm" value="Delete">
+                  </form>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

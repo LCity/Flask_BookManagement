@@ -1,0 +1,97 @@
+<template>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-10">
+        <h1>BookManager</h1>
+        <hr><br><br>
+        <form action="/Book/add/" method="POST">
+            Bookname:<input type="text" name="bookName" />
+            <br>
+            Author:<input type="text" name="author" />
+            <br>
+            <button type="button" class="btn btn-success btn-sm">Add Book</button>
+        </form>
+
+        <br><br>
+         <table class="table table-hover">
+          <thead>
+              <th scope="col">BookName</th>
+              <th scope="col">Author</th>
+              <th scope="col">Describe</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for u in users %}
+            <tr>
+              <td>{{u.bookName}}</td>
+              <td>{{u.author}}</td>
+              <td>{{u.describe}}</td>
+              <td>
+                <div class="btn-group" role="group">
+
+                  <form action="{{ url_for('Book.delete') }}" method="POST">
+                      <input type="text" name="bookName"  value={{u.bookName}} style="display:none"/>
+                      <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                      <button type="button" class="btn btn-warning btn-sm">Borrow</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</template>
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+      <title>Book</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+   </head>
+<body>
+<form action="/Book/add/" method="POST">
+    Bookname:<input type="text" name="bookName" />
+    Author:<input type="text" name="author" />
+    <input type="submit" value="add" />
+</form>
+{% if users %}
+<div style="padding:20px 40px 20px 40px">
+<table border="1px" id="customers">
+    <tr>
+        <th>BookName</th>
+        <th>Author</th>
+    </tr>
+    <script>var a=1;  var s="alt";</script>
+    {% for u in users %}
+        <tr class="alter">
+
+
+
+            <td>{{u.bookName}}</td>
+            <td>{{u.author}}</td>
+            <td border="0px">
+                <form action="{{ url_for('Book.delete') }}" method="POST">
+                     <input type="text" name="bookName"  value={{u.bookName}} style="display:none"/>
+                     <input type="submit"  value=delete />
+                </form>
+            </td>
+            <td>
+             <div class="btn-group" role="group">
+                  <button type="button" class="btn btn-warning btn-sm">Update</button>
+                  <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                </div>
+            </td>
+        </tr>
+
+    {% endfor %}
+</table>
+</div>
+{% endif %}
+</body>
+</html>
