@@ -2,6 +2,12 @@
 基于Flask的简单图书管理系统
 # Flask项目-图书管理系统-笔记
 
+## 如何获得本项目源码并运行
+- 下载源码
+  - 建议安装Git，并学习如何使用 git pull & git clone
+- 安装环境中所需的环境，如果有其他需要的包，请按需报错安装
+- 运行 run.py 即可，即python run.py
+
 ## 环境
 
 Python 3.7
@@ -12,11 +18,17 @@ Mysql8.0.2
 
 Bootstrap
 
+> 不会还有人不会安装Flask吧，不会吧，不会吧
+
+> python，pip 都不是很了解的建议先学习了这两个东西再说
+
+> 可以看看底下参考资料中的Flask学习下安装
 
 
->  首先解释一些形而上的东西，会方便对整体的理解
+
 
 ## MVC模型
+>  首先解释一些形而上的东西，会方便对整体的理解
 
 - M（model）：模型，指获得数据（本项目是通过pymysql从本地数据库中获得的数据）
 - V（View）：视图，将数据转换为用户能够交互和操作的图形界面，也就是我们通常使用的网页
@@ -68,8 +80,8 @@ if __name__ == '__main__':
     				#app.run()，将一直运行，其后不要写任何代码
 ```
 
-- 将上面这段代码保存为run.py，然后使用python运行
-- 然后在浏览器中访问http://localhost:5000，就可以看到效果
+- 将上面这段代码保存为 run.py，然后使用python运行
+- 然后在浏览器中访问 http://localhost:5000，就可以看到效果
 - 此处也可以设置环境变量，从而使用flask命令来运行，但我觉得有点多此一举
 
 > 此处可以自己尝试更改代码，测试一下自己是否理解 
@@ -90,6 +102,9 @@ return render_template("Admin/choose.html", adminname=p_user)
 
 - 当然，你也可以向html内传输内容，而内容的显示则由html中的语句实现
   - 具体方法之后说明前端html页面的时候会进行说明
+
+- **这个渲染的html文件在哪呢**，看看文件目录中的templates，里面是不是有个Admin，此处渲染的函数会自动在templates文件夹下寻找
+- *当然，templates文件夹需要你自己建了*
 
 > 此处，返回的页面其实并不是单纯的html文件，而是通过render_template函数渲染好的文件，也就是说，html内部可能有需要得到传递的内容之类的。
 >
@@ -156,19 +171,37 @@ class Book(db.Model):
 
 ## 前端网页部分
 
-> 首先建议先自学HTML基础，了解下面用到的几个标签，着重学习
+> 首先建议先自学HTML基础，了解下面用到的几个标签，着重学习 table,form,input
+### Jinja
+- 提供了对数据的解析，可以快速根据内容构建需要的html标签内容
+- 使用 {% %}  里面写Flask的相关语句，比如for，if等语句 
+- 使用 if等语句 在结束位置需要使用 {% endfor %}/{% endif %}
+- 使用 {{ }}  里面写Flask接收的变量，比如{{u.username}}
+
+> return render_template("Admin/choose.html", adminname=p_user)
+
+> 这句话中的p_user就是传入的变量，可以在html中使用{{adminname}}的方式调用
 
 
 
+# 项目的创建及运行
 > Flask文件的创建过程
+- 创建 run.py 
+- 创建 config.py 连接数据库
+- 创建 app1文件
+  - 创建 templates文件
+  - 创建models.py，并根据数据库书写自己所使用的对象
+  - 创建creat_db.py,开始数据库连接
+  - 创建所需的各个模块，User.py,Book.py 等
 
-- 创建app1文件
-- 创建run.py 文件
-- 
-
+  
 > 和Django的比较：因为Flask是一个更微型的框架，所以并没有提供像Django一样，通过命令行添加应用的方式，而是需要通过手动添加的方式加上所有的代码和文件
 
+- 运行项目时直接执行 run.py 就可以
+- 也就是 python run.py
 
+# 部署
+由于这里我也是一知半解，所以等我学习一段姿势之后再来添加
 
 
 
